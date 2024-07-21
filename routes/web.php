@@ -3,10 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\ClassController;
 
 // Route::get('login', [ExampleController::class, 'login']);
 // Route::get('cv', [ExampleController::class, 'cv']);
-Route::get('contact', [ExampleController::class, 'contact']);
+// Route::get('contact', [ExampleController::class, 'contact']);
+// Route::get('cars/create', [CarController::class, 'create'])->name('cars.create');
+// Route::post('cars', [CarController::class, 'store'])->name('cars.store');
+Route::get('classes/create', [ClassController::class, 'create'])->name('classes.create');
+Route::post('classes', [ClassController::class, 'store'])->name('classes.store');
+
 
 Route::get('', function () {
     return view('welcome');
@@ -83,19 +90,19 @@ Route::post('contact-data', function(Request $request) {
     return $data;
 })->name('contact-data');
 
-//method2
-Route::post('contact-data', function(Request $request) {
-    $name =$request->input('name');
-    $email =$request->input('email');
-    $subject =$request->input('subject');
-    $message =$request->input('message');
-    return "Name:$name <br> Email:$email <br> Subject:$subject <br> Message:$message";
-})->name('contact-data');
-//method3
-Route::post('contact-data', function(Request $request) {
-    $name =$request->name;
-    $email =$request->email;
-    $subject =$request->subject;
-    $message =$request->message;
-    return "Name:$name <br> Email:$email <br> Subject:$subject <br> Message:$message";
-})->name('contact-data');
+// //method2
+// Route::post('contact-data', function(Request $request) {
+//     $name =$request->input('name');
+//     $email =$request->input('email');
+//     $subject =$request->input('subject');
+//     $message =$request->input('message');
+//     return "Name:$name <br> Email:$email <br> Subject:$subject <br> Message:$message";
+// })->name('contact-data');
+// //method3
+// Route::post('contact-data', function(Request $request) {
+//     $name =$request->name;
+//     $email =$request->email;
+//     $subject =$request->subject;
+//     $message =$request->message;
+//     return "Name:$name <br> Email:$email <br> Subject:$subject <br> Message:$message";
+// })->name('contact-data');
