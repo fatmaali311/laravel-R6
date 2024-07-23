@@ -9,10 +9,14 @@ use App\Http\Controllers\ClassController;
 // Route::get('login', [ExampleController::class, 'login']);
 // Route::get('cv', [ExampleController::class, 'cv']);
 // Route::get('contact', [ExampleController::class, 'contact']);
-// Route::get('cars/create', [CarController::class, 'create'])->name('cars.create');
-// Route::post('cars', [CarController::class, 'store'])->name('cars.store');
+Route::get('cars/create', [CarController::class, 'create'])->name('cars.create');
+Route::post('cars', [CarController::class, 'store'])->name('cars.store');
+Route::get('cars', [CarController::class, 'index']);
+Route::get('cars/{id}', [CarController::class, 'edit'])->name('cars.edit');
 Route::get('classes/create', [ClassController::class, 'create'])->name('classes.create');
 Route::post('classes', [ClassController::class, 'store'])->name('classes.store');
+Route::get('classes', [ClassController::class, 'index']);
+Route::get('classes/{id}', [ClassController::class, 'edit'])->name('class.edit');
 
 
 Route::get('', function () {

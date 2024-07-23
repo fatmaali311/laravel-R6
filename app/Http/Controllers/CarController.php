@@ -11,7 +11,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        $cars = Car::get();
+        return view('cars',compact('cars'));
     }
 
     /**
@@ -27,16 +28,12 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-       $carTitle='BMW';
-       $price='2144';
-       $description='test';
-       $published =true;
 
        Car::create([
-          'carTitle'=> $carTitle,
-          'price' => $price,
-         'description'=>  $description,
-        'published'=>  $published ,
+          'carTitle'=> $request->carTitle,
+          'price' => $request->price,
+         'description'=>  $request->description,
+        'published'=> isset($request->published) ,
        ]);
        return "Data added successfully";
     }
@@ -54,7 +51,10 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //get data of car to be update
+        //select
+        $car=Car::findOrFail($id);
+        return view('edit_car',compact('car'));
     }
 
     /**
