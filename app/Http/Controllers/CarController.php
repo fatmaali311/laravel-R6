@@ -35,7 +35,7 @@ class CarController extends Controller
          'description'=>  $request->description,
         'published'=> isset($request->published) ,
        ]);
-       return "Data added successfully";
+       return redirect()->route('cars.index');
     }
 
     /**
@@ -43,7 +43,8 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $car=Car::findOrFail($id);
+        return view('car_details',compact('car'));
     }
 
     /**
@@ -62,7 +63,14 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data=[
+            'carTitle'=> $request->carTitle,
+          'price' => $request->price,
+         'description'=>  $request->description,
+        'published'=> isset($request->published) ,
+        ];
+        Car::where('id',$id)->update($data);
+        return redirect()->route('cars.index');
     }
 
     /**
@@ -70,6 +78,12 @@ class CarController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Car::where('id',$id)->delete();
+       return redirect()->route('cars.index');
+    }
+    public function showDeleted(){
+        $cars= Car:: onlyTrashed()->get();
+        return view('trashedCars',compact('cars'));
+
     }
 }

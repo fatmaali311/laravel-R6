@@ -32,7 +32,7 @@
               <th scope="col">Description</th>
               <th scope="col">Published</th>
               <th scope="col">Show Details</th>
-              <th scope="col">Delete</th>
+              <th scope="col"> Permenant Delete</th>
               <th scope="col">Edit</th>
             </tr>
           </thead>
@@ -44,7 +44,7 @@
               <td>{{ Str::limit($car['description'],20)}}</td>
               <td>{{$car['published']? 'Yes' : 'No'}}</td>
               <td><a href="{{route('cars.details', $car['id'])}}"> More Details</a></td>
-              <td><a href="{{route('cars.destroy', $car['id'])}}" onclick="confirm('Are you sure you want to delete')">Delete</a></td>
+              <td><a href="" onclick="confirm('Are you sure you want to delete')">Delete</a></td>
              <td><a href="{{route('cars.edit', $car['id'])}}">Edit</a></td>
             </tr>
           @endforeach

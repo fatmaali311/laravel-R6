@@ -38,7 +38,7 @@ class ClassController extends Controller
           'timeFrom'=> $request->timeFrom,
          'timeTo'=>  $request->timeTo ,
         ]);
-        return "Data added successfully";
+        return redirect()->route('class.index');
      }
  
     
@@ -48,7 +48,8 @@ class ClassController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cl=Classes::findOrFail($id);
+        return view('class_details',compact('cl'));
     }
 
     /**
@@ -65,7 +66,16 @@ class ClassController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+       $data=[
+        'className'=> $request->className,
+        'capacity'=>  $request->capacity,
+        'isFulled'=> isset($request->isFulled),
+        'price' => $request->price,
+       'timeFrom'=> $request->timeFrom,
+      'timeTo'=>  $request->timeTo ,
+       ];
+     Classes::where('id',$id)->update($data);
+     return redirect()->route('class.index');
     }
 
     /**
@@ -73,6 +83,12 @@ class ClassController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Classes::where('id', $id)->delete();
+        return redirect()->route('class.index');
+    }
+    public function showDeleted(){
+        $class= Classes:: onlyTrashed()->get();
+        return view('trashedClass',compact('class'));
+
     }
 }

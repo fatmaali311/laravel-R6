@@ -21,6 +21,7 @@
 
 <body>
   <main>
+  
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">All Classes</h2>
@@ -33,6 +34,8 @@
               <th scope="col">Price</th>
               <th scope="col">Time From</th>
               <th scope="col">Time To</th>
+              <th scope="col">Show</th>
+              <th scope="col">Delete</th>
               <th scope="col">Edit</th>
             </tr>
           </thead>
@@ -45,7 +48,15 @@
               <td>{{$cl['price']}}</td>
               <td>{{$cl['timeFrom']}}</td>
               <td>{{$cl['timeTo']}}</td>
-          
+              <td><a href="{{route('class.details', $cl['id'])}}">Show</a></td>
+              <td> 
+              <form action="{{ route('class.destroy' ,$cl['id']) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="id" value="{{ $cl->id }}">
+                <input type="submit" onclick=" confirm('Are you sure you want to delete it')" value="Delete">
+                </form>
+                </td>
              <td><a href="{{route('class.edit', $cl['id'])}}">Edit</a></td>
             </tr>
           @endforeach

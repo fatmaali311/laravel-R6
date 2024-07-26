@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add Class</title>
+  <title>Edit Class</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap">
   <style>
@@ -18,8 +18,9 @@
   <main class="container my-5">
     <div class="bg-light p-5 rounded">
       <h2 class="fw-bold fs-2 mb-5">Edit Class</h2>
-      <form action="" method="POST" class="px-md-5">
+      <form action="{{route('class.update',$cl->id)}}" method="POST" class="px-md-5">
         @csrf
+        @method('put')
         <div class="mb-3 row">
           <label for="className" class="col-md-2 col-form-label fw-bold text-md-end">Class Name:</label>
           <div class="col-md-10">
