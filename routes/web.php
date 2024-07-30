@@ -17,6 +17,8 @@ Route::put('cars/{id}', [CarController::class, 'update'])->name('cars.update');
 Route::get('car/details{id}', [CarController::class, 'show'])->name('cars.details');
 Route::get('cars/{id}/delete', [CarController::class, 'destroy'])->name('cars.destroy');
 Route::get('cars/trashed', [CarController::class, 'showDeleted'])->name('cars.showDeleted');
+Route::patch('cars/{id}', [CarController::class, 'restore'])->name('cars.restore');
+Route::delete('cars/{id}/delete', [CarController::class, 'forceDelete'])->name('cars.forceDelete');
 Route::get('classes/create', [ClassController::class, 'create'])->name('classes.create');
 Route::post('classes', [ClassController::class, 'store'])->name('classes.store');
 Route::get('classes', [ClassController::class, 'index'])->name('class.index');
@@ -25,6 +27,9 @@ Route::put('classes/{id}', [ClassController::class, 'update'])->name('class.upda
 Route::get('classes/details{id}', [ClassController::class, 'show'])->name('class.details');
 Route::delete('classes/{id}/delete', [ClassController::class, 'destroy'])->name('class.destroy');
 Route::get('classes/trashed', [ClassController::class, 'showDeleted'])->name('class.showDeleted');
+Route::patch('classes/{id}', [ClassController::class, 'restore'])->name('class.restore');
+Route::delete('classes/{id}', [ClassController::class, 'forceDelete'])->name('class.forceDelete');
+
 Route::get('', function () {
     return view('welcome');
 });

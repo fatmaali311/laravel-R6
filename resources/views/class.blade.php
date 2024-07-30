@@ -54,7 +54,7 @@
                 @csrf
                 @method('DELETE')
                 <input type="hidden" name="id" value="{{ $cl->id }}">
-                <input type="submit" onclick=" confirm('Are you sure you want to delete it')" value="Delete">
+                <input type="submit" class="btn btn-link m-0 p-0" onclick=" return confirm('Are you sure you want to delete it')" value="Delete">
                 </form>
                 </td>
              <td><a href="{{route('class.edit', $cl['id'])}}">Edit</a></td>

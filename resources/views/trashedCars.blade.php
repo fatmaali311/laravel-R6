@@ -31,7 +31,7 @@
               <th scope="col">Price</th>
               <th scope="col">Description</th>
               <th scope="col">Published</th>
-              <th scope="col">Show Details</th>
+              <th scope="col">Restore</th>
               <th scope="col"> Permenant Delete</th>
               <th scope="col">Edit</th>
             </tr>
@@ -43,8 +43,22 @@
               <td>{{$car['price']}}</td>
               <td>{{ Str::limit($car['description'],20)}}</td>
               <td>{{$car['published']? 'Yes' : 'No'}}</td>
-              <td><a href="{{route('cars.details', $car['id'])}}"> More Details</a></td>
-              <td><a href="" onclick="confirm('Are you sure you want to delete')">Delete</a></td>
+              <td>
+                <form action="{{ route('cars.restore' ,$car['id']) }}" method="post">
+                  @csrf
+                  @method('PATCH')
+                  <input type="hidden" name="id" value="{{ $car->id }}">
+                  <input type="submit" class="btn btn-link m-0 p-0"  value="Restore">
+                </form>
+              </td>
+              <td>
+                <form action="{{ route('cars.forceDelete' ,$car['id']) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="id" value="{{ $car->id }}">
+                <input type="submit" class="btn btn-link m-0 p-0" onclick=" return confirm('Are you sure you want to delete it')" value="Delete">
+                </form>
+              </td>
              <td><a href="{{route('cars.edit', $car['id'])}}">Edit</a></td>
             </tr>
           @endforeach

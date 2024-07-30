@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use Dotenv\Util\Str;
+
 class CarController extends Controller
 {
     /**
@@ -28,13 +30,13 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-
-       Car::create([
-          'carTitle'=> $request->carTitle,
-          'price' => $request->price,
-         'description'=>  $request->description,
-        'published'=> isset($request->published) ,
-       ]);
+       $data=$request->validate([
+       'carTitle'=>'required|string',
+       'price'=>'required|numeric|min:0',
+       'description'=>'required|string|max:1000',
+       ] );
+       $data['published']= isset($request->published) ;
+       Car::create($data);
        return redirect()->route('cars.index');
     }
 
@@ -85,5 +87,13 @@ class CarController extends Controller
         $cars= Car:: onlyTrashed()->get();
         return view('trashedCars',compact('cars'));
 
+    }
+    public function restore(string $id){
+        Car::where('id',$id)->restore();
+        return redirect()->route('cars.index');
+    }
+    public function forceDelete(string $id){
+        Car::where('id',$id)->forceDelete();
+        return redirect()->route('cars.index');
     }
 }

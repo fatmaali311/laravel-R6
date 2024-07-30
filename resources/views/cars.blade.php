@@ -44,7 +44,7 @@
               <td>{{ Str::limit($car['description'],20)}}</td>
               <td>{{$car['published']? 'Yes' : 'No'}}</td>
               <td><a href="{{route('cars.details', $car['id'])}}"> More Details</a></td>
-              <td><a href="{{route('cars.destroy', $car['id'])}}" onclick="confirm('Are you sure you want to delete')">Delete</a></td>
+              <td><a href="{{route('cars.destroy', $car['id'])}}" class="btn btn-link m-0 p-0" onclick=" return confirm('Are you sure you want to delete')">Delete</a></td>
              <td><a href="{{route('cars.edit', $car['id'])}}">Edit</a></td>
             </tr>
           @endforeach
