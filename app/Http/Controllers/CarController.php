@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Car;
-use Dotenv\Util\Str;
+use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
@@ -14,7 +13,7 @@ class CarController extends Controller
     public function index()
     {
         $cars = Car::get();
-        return view('cars',compact('cars'));
+        return view('cars', compact('cars'));
     }
 
     /**
@@ -22,7 +21,7 @@ class CarController extends Controller
      */
     public function create()
     {
-      return view('add_car');
+        return view('add_car');
     }
 
     /**
@@ -30,14 +29,22 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-       $data=$request->validate([
-       'carTitle'=>'required|string',
-       'price'=>'required|numeric|min:0',
-       'description'=>'required|string|max:1000',
-       ] );
-       $data['published']= isset($request->published) ;
-       Car::create($data);
-       return redirect()->route('cars.index');
+        $data = $request->validate([
+            'carTitle' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'description' => 'required|string|max:1000',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ]);
+        if ($request->hasFile('image')) {
+            $file_extension = $request->image->getClientOriginalExtension();
+            $file_name = time() . '.' . $file_extension;
+            $path = 'assets/images';
+            $request->image->move($path, $file_name);
+            $data['image'] = $file_name;
+        }
+        $data['published'] = isset($request->published);
+        Car::create($data);
+        return redirect()->route('cars.index');
     }
 
     /**
@@ -45,8 +52,8 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-        $car=Car::findOrFail($id);
-        return view('car_details',compact('car'));
+        $car = Car::findOrFail($id);
+        return view('car_details', compact('car'));
     }
 
     /**
@@ -56,8 +63,8 @@ class CarController extends Controller
     {
         //get data of car to be update
         //select
-        $car=Car::findOrFail($id);
-        return view('edit_car',compact('car'));
+        $car = Car::findOrFail($id);
+        return view('edit_car', compact('car'));
     }
 
     /**
@@ -65,13 +72,22 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data=[
-            'carTitle'=> $request->carTitle,
-          'price' => $request->price,
-         'description'=>  $request->description,
-        'published'=> isset($request->published) ,
-        ];
-        Car::where('id',$id)->update($data);
+        $data = $request->validate([
+            'carTitle' => 'sometimes|required|string',
+            'price' => 'sometimes|required|numeric|min:0',
+            'description' => 'sometimes|required|string|max:1000',
+            'image' => 'sometimes|required|mimes:png,jpg,jpeg|max:2048',
+        ]);
+        if ($request->hasFile('image')) {
+            $file_extension = $request->image->getClientOriginalExtension();
+            $file_name = time() . '.' . $file_extension;
+            $path = 'assets/images';
+            $request->image->move($path, $file_name);
+            $data['image'] = $file_name;
+        }
+
+        $data['published'] = isset($request->published);
+        Car::where('id', $id)->update($data);
         return redirect()->route('cars.index');
     }
 
@@ -80,20 +96,24 @@ class CarController extends Controller
      */
     public function destroy(string $id)
     {
-        Car::where('id',$id)->delete();
-       return redirect()->route('cars.index');
+        Car::where('id', $id)->delete();
+        return redirect()->route('cars.index');
     }
-    public function showDeleted(){
-        $cars= Car:: onlyTrashed()->get();
-        return view('trashedCars',compact('cars'));
+    public function showDeleted()
+    {
+        $cars = Car::onlyTrashed()->get();
+        return view('trashedCars', compact('cars'));
 
     }
-    public function restore(string $id){
-        Car::where('id',$id)->restore();
+    public function restore(string $id)
+    {
+        Car::where('id', $id)->restore();
         return redirect()->route('cars.index');
     }
-    public function forceDelete(string $id){
-        Car::where('id',$id)->forceDelete();
+    public function forceDelete(string $id)
+    {
+        Car::where('id', $id)->forceDelete();
         return redirect()->route('cars.index');
     }
+
 }

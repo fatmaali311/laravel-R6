@@ -94,8 +94,8 @@ Route::get('', function () {
 //     return "data received";
 // })->name('data');
 
-
-
+Route::get('uploadfile',[ExampleController::class,'uploadForm']);
+Route::post('upload',[ExampleController::class,'upload'])->name('upload');
 // task3
 
 // method1
