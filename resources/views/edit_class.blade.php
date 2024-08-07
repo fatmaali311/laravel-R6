@@ -34,9 +34,10 @@
           </div>
         </div>
         <div class="mb-3 row">
+          <input type="hidden" value="0" name="isFulled">
           <label for="isFulled" class="col-md-2 col-form-label fw-bold text-md-end">Is Fulled:</label>
           <div class="col-md-10">
-            <input type="checkbox" class="form-check-input" name="isFulled" id="isFulled" @checked($cl->isFulled)/>
+            <input type="checkbox" class="form-check-input" value="1" name="isFulled" id="isFulled" @checked($cl->isFulled)/>
           </div>
         </div>
         <div class="mb-3 row">

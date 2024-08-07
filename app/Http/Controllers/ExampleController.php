@@ -29,4 +29,5 @@ class ExampleController extends Controller
         return 'Uploaded';
         
 }
+
 }

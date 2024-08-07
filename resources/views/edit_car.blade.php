@@ -62,9 +62,10 @@
           </div>
           <hr>
           <div class="form-group mb-3 row">
+            <input type="hidden" name="published" value="0">
             <label for="" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" @checked(old('published' ,$car->published)) />
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" value="1" name="published" @checked(old('published' ,$car->published)) />
             </div>
           </div>
           <div class="text-md-end">
