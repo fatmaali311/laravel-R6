@@ -57,7 +57,7 @@ class ExampleController extends Controller
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:50',
             'subject' => 'required|string|max:250',
-            'message' => 'required|string',
+            'message' => 'required|string', 
         ]);
         //dd($data);
         // Send the email to a specific user

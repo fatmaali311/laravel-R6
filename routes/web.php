@@ -14,6 +14,7 @@ Route::get('login', [ExampleController::class, 'login']);
  Route::get('contact', [ExampleController::class, 'contact']);
  Route::post('contact', [ExampleController::class, 'contactData'])->name('contactData');
 
+
  Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
